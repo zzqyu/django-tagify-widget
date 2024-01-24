@@ -1,0 +1,25 @@
+<input name="{{ widget.name }}" {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} />
+<script>
+    var {{ widget.name }} = new Tagify(document.querySelector('input[name={{ widget.name }}]'), {
+        tagTextProp: 'label',
+        mode : 'select',
+        enforceWhitelist: true,
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(', '),
+        dropdown: {
+            closeOnSelect: true,
+            enabled: 0,
+            searchKeys: ['label', 'value'],
+        },
+        templates: {
+            dropdownItem: function(tagData){
+                try{
+                    return `<div ${this.getAttributes(tagData)} class='tagify__dropdown__item' ${tagData.class ? tagData.class : ""}'>
+                                <span>${tagData.label}</span>
+                            </div>`
+                }
+                catch(err){ console.error(err)}
+            }
+        },
+        whitelist: {{widget.tagify.whitelist}}
+    });
+</script>
