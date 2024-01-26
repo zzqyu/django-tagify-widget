@@ -1,0 +1,2 @@
+recursive-include tagify_widget/static *
+recursive-include tagify_widget/templates *
