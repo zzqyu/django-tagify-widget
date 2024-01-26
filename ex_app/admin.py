@@ -14,6 +14,7 @@ class MyModelForm(forms.ModelForm):
         model = models.Book
         fields = '__all__'
         widgets = {
+            'gender': TagSelect(),
             'category': TagSelect(),
             'makers': TagSelectMultiple(),
         }

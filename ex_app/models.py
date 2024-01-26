@@ -16,7 +16,14 @@ class Maker(models.Model):
 
 
 class Book(models.Model):
+    MALE = 'M'
+    FEMALE = 'F'
+    GENDER_CHOICES = [
+        (MALE, 'Male'),
+        (FEMALE, 'Female'),
+    ]
     name = models.CharField(max_length=50);
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES);
     category = models.ForeignKey(
         Type,
         on_delete=models.CASCADE
