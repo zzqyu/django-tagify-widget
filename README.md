@@ -2,6 +2,7 @@
 # Django Tagify Widget
 
 This is a Django widget that integrates with `tagify.js` to provide tagging functionality in Django forms.
+![](demo.gif)
 
 ## Features
 
