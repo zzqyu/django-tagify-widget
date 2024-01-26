@@ -4,10 +4,13 @@ from setuptools import setup, find_packages
 name = "django-tagify-widget"
 
 # 패키지 버전
-version = "0.1.0"
+version = "0.1.1"
 
 # 패키지 설명
 description = "Django widgets with tagify.js"
+
+with open('README.md', encoding='utf-8') as f:
+    long_description = f.read()
 
 # 패키지 URL (옵션)
 url = "https://github.com/zzqyu/django-tagify-widget"
@@ -29,6 +32,8 @@ setup(
     name=name,
     version=version,
     description=description,
+    long_description = long_description,
+    long_description_content_type='text/markdown',
     url=url,
     author=author,
     author_email=author_email,
