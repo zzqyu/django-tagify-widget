@@ -1,7 +1,7 @@
 from django.contrib import admin
 from ex_app import models
 from django import forms
-from tagify_widget.widgets import TagSelect
+from tagify_widget.widgets import TagSelect, TagSelectMultiple
 
 # Register your models here.
 
@@ -15,6 +15,7 @@ class MyModelForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'category': TagSelect(),
+            'makers': TagSelectMultiple(),
         }
 
 

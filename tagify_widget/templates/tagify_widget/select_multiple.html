@@ -1,0 +1,41 @@
+<input {% if widget.value != None %} value="{{ widget.tag_value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} />
+<select class="invisible" name="{{ widget.name }}" id="{{ widget.name }}_select" style="display:none" {% if widget.attrs.required %}required{% endif %} multiple>
+  {% for group_name, group_choices, group_index in widget.optgroups %}
+    {% if group_name %}
+      <optgroup label="{{ group_name }}">
+    {% endif %}
+    {% for option in group_choices %}
+      {% include option.template_name with widget=option %}
+    {% endfor %}
+    {% if group_name %}
+      </optgroup>
+    {% endif %}
+  {% endfor %}
+</select>
+<script>
+    var {{ widget.name }} = new Tagify(document.querySelector('#{{widget.attrs.id}}'), {
+        tagTextProp: 'label',
+        enforceWhitelist: true,
+        originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
+        dropdown: {
+            closeOnSelect: true,
+            enabled: 0,
+            searchKeys: ['label', 'value'],
+        },
+        templates: {
+            dropdownItem: function(tagData){
+                try{
+                    return `<div ${this.getAttributes(tagData)} class='tagify__dropdown__item' ${tagData.class ? tagData.class : ""}'>
+                                <span>${tagData.label}</span>
+                            </div>`
+                }
+                catch(err){ console.error(err)}
+            }
+        },
+        whitelist: {{widget.tagify.whitelist}},
+        callbacks: {
+            "add": (e) => document.querySelector('#{{ widget.name }}_select option[value="'+e.detail['data']['value'].toString()+'"]').selected=true,
+            "remove": (e) => document.querySelector('#{{ widget.name }}_select option[value="'+e.detail['data']['value'].toString()+'"]').selected=false,
+        }
+    });
+</script>
