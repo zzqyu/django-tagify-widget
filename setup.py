@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 name = "django-tagify-widget"
 
 # 패키지 버전
-version = "0.1.1"
+version = "0.1.2"
 
 # 패키지 설명
 description = "Django widgets with tagify.js"
