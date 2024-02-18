@@ -42,12 +42,19 @@ class TagSelect(forms.widgets.Select):
             "whitelist": mark_safe(json.dumps(data)),
             "varname": _sanitize_js_variable_name(context["widget"]["name"]),
         }
+        self._context_widget_value(context)
+        return context
+    
+    def _context_widget_value(self, context):
         if isinstance(context["widget"]["value"], list) and len(context["widget"]["value"]):
             context["widget"]["value"] = context["widget"]["value"][0]
-        return context
 
 
 class TagSelectMultiple(TagSelect):
     template_name = "tagify_widget/select_multiple.html"
     option_template_name = "django/forms/widgets/select_option.html"
     allow_multiple_selected = True
+
+    def _context_widget_value(self, context):
+        if isinstance(context["widget"]["value"], list):
+            context["widget"]["tag_value"] = ", ".join(context["widget"]["value"])
