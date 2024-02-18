@@ -2,6 +2,18 @@ from django import forms
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 import json
+import re
+
+
+def _sanitize_js_variable_name(s: str):
+    """
+    Transforms the string to use as variable names in JavaScript.
+    """
+    # Replace a leading digit with '_'
+    s = re.sub(r'^\d', '_', s)
+    # Replace any character not allowed in JavaScript variable names with '_'
+    s = re.sub(r'[^a-zA-Z0-9_$]', '_', s)
+    return s
 
 
 class TagSelect(forms.widgets.Select):
@@ -27,7 +39,8 @@ class TagSelect(forms.widgets.Select):
         ]
 
         context["widget"]["tagify"] = {
-            "whitelist": mark_safe(json.dumps(data))
+            "whitelist": mark_safe(json.dumps(data)),
+            "varname": _sanitize_js_variable_name(context["widget"]["name"]),
         }
         if isinstance(context["widget"]["value"], list) and len(context["widget"]["value"]):
             context["widget"]["value"] = context["widget"]["value"][0]

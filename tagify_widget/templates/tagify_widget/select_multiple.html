@@ -13,7 +13,7 @@
   {% endfor %}
 </select>
 <script>
-    var {{ widget.name }} = new Tagify(document.querySelector('#{{widget.attrs.id}}'), {
+    var {{ widget.tagify.varname }} = new Tagify(document.querySelector('#{{widget.attrs.id}}'), {
         tagTextProp: 'label',
         enforceWhitelist: true,
         originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),

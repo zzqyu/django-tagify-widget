@@ -1,6 +1,6 @@
 <input name="{{ widget.name }}" {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %} />
 <script>
-    var {{ widget.name }} = new Tagify(document.querySelector('input[name={{ widget.name }}]'), {
+    var {{ widget.tagify.varname }} = new Tagify(document.querySelector('input[name={{ widget.name }}]'), {
         tagTextProp: 'label',
         mode : 'select',
         enforceWhitelist: true,
