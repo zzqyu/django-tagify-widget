@@ -3,6 +3,7 @@
 
 This is a Django widget that integrates with `tagify.js` to provide tagging functionality in Django forms.
 ![](demo.gif)
+![](demo2.gif)
 
 ## Features
 
@@ -61,6 +62,26 @@ class MyModelForm(forms.ModelForm):
             'category': TagSelect(),
             'makers': TagSelectMultiple(),
         }
+
+# ex_app/admin of this repogitory
+class MyModelAdmin(admin.ModelAdmin):
+    # ...
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        form_field = super().formfield_for_choice_field(db_field, request, **kwargs)
+        form_field.widget = TagSelect(choices=form_field.choices)
+        return form_field
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        form_field = super().formfield_for_foreignkey(db_field, request, **kwargs)
+        form_field.widget = TagSelect()
+        return form_field
+    
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        form_field = super().formfield_for_manytomany(db_field, request, **kwargs)
+        form_field.widget = TagSelectMultiple()
+        form_field.help_text = ""
+        return form_field
+    # ...
 ```
 
 # Contributing

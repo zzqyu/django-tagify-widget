@@ -32,3 +32,15 @@ class Book(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class ProxyBook1(Book):
+    class Meta:
+        proxy = True
+        verbose_name = 'Book Proxy 1'
+        verbose_name_plural = 'Book Proxies 1'
+
+class ProxyBook2(Book):
+    class Meta:
+        proxy = True
+        verbose_name = 'Book Proxy 2'
+        verbose_name_plural = 'Book Proxies 2'
